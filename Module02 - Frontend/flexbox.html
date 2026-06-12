@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  FLEXBOX (Flexible Box Layout)
+  ============================================================================
+
+  Flexbox é o sistema de layout mais usado no dia a dia do front-end. A grande
+  sacada dele é distribuir espaço e alinhar elementos de forma INTELIGENTE,
+  mesmo quando você não sabe o tamanho exato de cada um.
+
+  Para nunca mais se perder, grave estes DOIS conceitos. Eles explicam 90% do
+  Flexbox:
+
+  1) Existem dois "papéis":
+       • O CONTAINER (o pai)  -> recebe "display: flex". É quem MANDA.
+       • Os ITENS (os filhos diretos) -> obedecem às regras do container.
+
+  2) Existem dois "eixos" (e tudo gira em torno deles):
+       • EIXO PRINCIPAL (main axis)  -> a direção em que os itens se enfileiram.
+       • EIXO CRUZADO (cross axis)   -> sempre perpendicular ao principal.
+
+     Quem define a direção do eixo principal é a propriedade "flex-direction":
+        - flex-direction: row     -> eixo principal HORIZONTAL  (→ padrão)
+        - flex-direction: column  -> eixo principal VERTICAL    (↓)
+
+  A partir daí, só duas propriedades fazem o alinhamento pesado:
+        • justify-content -> alinha ao longo do EIXO PRINCIPAL.
+        • align-items     -> alinha ao longo do EIXO CRUZADO.
+
+  Dica de ouro para não trocar as bolas:
+        "JUSTIFY anda na direção das setas; ALIGN anda atravessado."
+
+  Os blocos abaixo demonstram, um a um, cada conceito. Mexa nos valores e
+  recarregue a página para ver a mágica acontecer!
+  ============================================================================
+-->
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> <!-- Codificação UTF-8 (acentos corretos). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsividade em celulares. -->
+    <title>Flexbox - Aula Comentada</title>
+    <style>
+        /* ===================================================================
+           ESTILOS GERAIS (apenas para a página ficar legível; não é Flexbox)
+           =================================================================== */
+        * {
+            box-sizing: border-box; /* Largura/altura já incluem padding e borda (vide a aula de Box Model). */
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        h1 { font-size: 1.6rem; }
+
+        /* Título de cada demonstração. */
+        h2 {
+            font-size: 1.1rem;
+            margin: 32px 0 4px;
+            color: #2c3e50;
+        }
+
+        /* Pequena legenda explicando o que observar em cada demo. */
+        .legenda {
+            margin: 0 0 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /*
+          ESTILO COMUM DE TODO "CONTAINER FLEX".
+          Repare que a classe ".flex" abaixo é só base visual; o que de fato
+          ativa o Flexbox é "display: flex", aplicado em cada demo.
+          A borda tracejada e o fundo claro existem só para ENXERGARMOS os
+          limites do container e o espaço que sobra dentro dele.
+        */
+        .flex {
+            display: flex;            /* <<< A LINHA QUE LIGA O FLEXBOX. Sem ela, nada do resto funciona. */
+            border: 2px dashed #999;  /* Contorno tracejado para vermos a "caixa-pai". */
+            background-color: #fff;
+            padding: 8px;
+            min-height: 90px;         /* Altura mínima para conseguirmos observar o alinhamento no eixo vertical. */
+            gap: 8px;                 /* gap = espaço ENTRE os itens (mais limpo que ficar usando margin em cada um). */
+        }
+
+        /*
+          ESTILO COMUM DE TODO "ITEM FLEX" (os filhos do container).
+          São caixinhas coloridas e numeradas só para visualizarmos a ordem e
+          a distribuição.
+        */
+        .item {
+            background-color: #3498db;
+            color: #fff;
+            padding: 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* ===================================================================
+           DEMO 1 — flex-direction (define o EIXO PRINCIPAL)
+           =================================================================== */
+        .demo-row {
+            flex-direction: row;
+            /*
+              row (padrão): os itens se enfileiram da ESQUERDA para a DIREITA.
+              Eixo principal = horizontal. Eixo cruzado = vertical.
+              Outras opções: row-reverse (→ invertido), column, column-reverse.
+            */
+        }
+
+        .demo-column {
+            flex-direction: column;
+            /*
+              column: os itens se EMPILHAM de cima para baixo.
+              Agora o eixo principal é VERTICAL e o cruzado é horizontal.
+              CONSEQUÊNCIA IMPORTANTE: justify-content e align-items "trocam de
+              direção" junto, porque eles seguem os eixos, não o mundo real!
+            */
+        }
+
+        /* ===================================================================
+           DEMO 2 — justify-content (alinha no EIXO PRINCIPAL)
+           Como estes containers são "row", justify mexe na HORIZONTAL.
+           =================================================================== */
+        .demo-justify-start   { justify-content: flex-start; }   /* Agrupa tudo no INÍCIO (padrão). */
+        .demo-justify-center  { justify-content: center; }       /* Agrupa tudo no MEIO. */
+        .demo-justify-between { justify-content: space-between; } /* Cola os extremos nas pontas e divide a folga ENTRE os itens. */
+        .demo-justify-around  { justify-content: space-around; }  /* Cada item ganha um "espaço ao redor" igual (sobra meia-margem nas pontas). */
+        .demo-justify-evenly  { justify-content: space-evenly; }  /* TODOS os vãos (inclusive bordas) ficam exatamente iguais. */
+
+        /* ===================================================================
+           DEMO 3 — align-items (alinha no EIXO CRUZADO)
+           Containers "row" -> align mexe na VERTICAL. Por isso demos altura.
+           =================================================================== */
+        .demo-align { min-height: 140px; } /* Mais alto, para a diferença de alinhamento vertical ficar evidente. */
+
+        .demo-align-stretch  { align-items: stretch; }    /* Padrão: estica os itens para preencher a altura (se eles não tiverem altura própria). */
+        .demo-align-start    { align-items: flex-start; } /* Encosta os itens no TOPO. */
+        .demo-align-center   { align-items: center; }     /* Centraliza verticalmente. */
+        .demo-align-end      { align-items: flex-end; }   /* Encosta os itens na BASE. */
+
+        /*
+          Para o "stretch" funcionar precisamos que os itens NÃO tenham altura
+          fixa. Já para os demais alinhamentos, damos uma altura aos itens para
+          que exista diferença visível entre topo, centro e base.
+        */
+        .demo-align-start .item,
+        .demo-align-center .item,
+        .demo-align-end .item { height: 60px; }
+
+        /* ===================================================================
+           DEMO 4 — flex-wrap (deixa os itens "quebrarem" para a próxima linha)
+           =================================================================== */
+        .demo-wrap {
+            flex-wrap: wrap;
+            /*
+              Por padrão o Flexbox usa "nowrap": ele tenta espremer TUDO numa
+              única linha, encolhendo os itens. Com "wrap", quando não couber
+              mais, o item pula para a linha de baixo — essencial para layouts
+              responsivos (galerias, cards, etc.).
+            */
+        }
+        .demo-wrap .item { width: 150px; } /* Largura fixa generosa para forçar a quebra de linha em telas estreitas. */
+
+        /* ===================================================================
+           DEMO 5 — flex-grow / a propriedade "flex" nos ITENS
+           Aqui quem recebe a regra é o ITEM, não o container.
+           =================================================================== */
+        .demo-grow .crescer {
+            flex: 1;
+            /*
+              "flex: 1" é um atalho para flex-grow:1, flex-shrink:1, flex-basis:0.
+              Tradução: "este item pode CRESCER e absorver todo o espaço livre
+              que sobrar no container". Se vários itens tiverem flex:1, eles
+              dividem a sobra igualmente. É a forma clássica de fazer uma coluna
+              "elástica" que ocupa o resto do espaço.
+            */
+            background-color: #e67e22; /* Cor diferente para destacar quem cresce. */
+        }
+
+        /* ===================================================================
+           DEMO 6 — align-self e order (sobrescrevendo regras item a item)
+           =================================================================== */
+        .demo-self { min-height: 140px; align-items: flex-start; }
+
+        .demo-self .especial {
+            align-self: flex-end;      /* align-self sobrescreve o align-items DO CONTAINER, mas só para ESTE item. Ele desce sozinho para a base. */
+            background-color: #9b59b6;
+        }
+        .demo-self .primeiro {
+            order: -1;                 /* order muda a ORDEM VISUAL sem mexer no HTML. Padrão é 0; quanto menor, mais à frente. Aqui o "5" vai para o começo. */
+            background-color: #16a085;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Flexbox na prática</h1>
+    <p class="legenda">Cada caixa tracejada é um <strong>container flex</strong>; as caixas coloridas são os <strong>itens</strong>. Diminua a janela para ver alguns efeitos mudarem.</p>
+
+    <!-- ===================== DEMO 1: flex-direction ===================== -->
+    <h2>1) flex-direction — define o eixo principal</h2>
+    <p class="legenda">row = lado a lado (padrão) &nbsp;|&nbsp; column = empilhado</p>
+
+    <!-- row: itens em linha, da esquerda para a direita -->
+    <div class="flex demo-row">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <!-- column: itens empilhados de cima para baixo -->
+    <div class="flex demo-column" style="margin-top:8px;">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+
+    <!-- ===================== DEMO 2: justify-content ===================== -->
+    <h2>2) justify-content — alinha no eixo PRINCIPAL (horizontal, aqui)</h2>
+    <p class="legenda">Observe como o espaço livre é distribuído de cinco formas diferentes.</p>
+
+    <p class="legenda"><code>flex-start</code></p>
+    <div class="flex demo-justify-start">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <p class="legenda"><code>center</code></p>
+    <div class="flex demo-justify-center">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <p class="legenda"><code>space-between</code></p>
+    <div class="flex demo-justify-between">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <p class="legenda"><code>space-around</code></p>
+    <div class="flex demo-justify-around">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <p class="legenda"><code>space-evenly</code></p>
+    <div class="flex demo-justify-evenly">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <!-- ===================== DEMO 3: align-items ===================== -->
+    <h2>3) align-items — alinha no eixo CRUZADO (vertical, aqui)</h2>
+    <p class="legenda">Por isso demos altura aos containers: para haver "em cima", "no meio" e "embaixo".</p>
+
+    <p class="legenda"><code>stretch</code> (padrão — itens sem altura própria esticam)</p>
+    <div class="flex demo-align demo-align-stretch">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+    </div>
+
+    <p class="legenda"><code>flex-start</code> &nbsp;/&nbsp; <code>center</code> &nbsp;/&nbsp; <code>flex-end</code></p>
+    <div class="flex demo-align demo-align-start" style="margin-bottom:8px;">
+        <div class="item">topo</div><div class="item">topo</div><div class="item">topo</div>
+    </div>
+    <div class="flex demo-align demo-align-center" style="margin-bottom:8px;">
+        <div class="item">meio</div><div class="item">meio</div><div class="item">meio</div>
+    </div>
+    <div class="flex demo-align demo-align-end">
+        <div class="item">base</div><div class="item">base</div><div class="item">base</div>
+    </div>
+
+    <!-- ===================== DEMO 4: flex-wrap ===================== -->
+    <h2>4) flex-wrap — permite a quebra de linha</h2>
+    <p class="legenda">Estreite a janela do navegador: os itens vão "pular" para a linha de baixo em vez de espremer.</p>
+    <div class="flex demo-wrap">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+        <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+    </div>
+
+    <!-- ===================== DEMO 5: flex (crescer) ===================== -->
+    <h2>5) flex: 1 — um item que "estica" e ocupa o espaço livre</h2>
+    <p class="legenda">O item laranja tem <code>flex: 1</code> e engole toda a sobra horizontal. Padrão de "barra de busca", "sidebar + conteúdo", etc.</p>
+    <div class="flex demo-grow">
+        <div class="item">fixo</div>
+        <div class="item crescer">flex: 1 (eu cresço!)</div>
+        <div class="item">fixo</div>
+    </div>
+
+    <!-- ===================== DEMO 6: align-self e order ===================== -->
+    <h2>6) align-self e order — exceções item a item</h2>
+    <p class="legenda">O roxo desce sozinho com <code>align-self</code>; o verde "5" pula para a frente com <code>order: -1</code>, sem mudar o HTML.</p>
+    <div class="flex demo-self">
+        <div class="item">1</div>
+        <div class="item especial">2 (align-self)</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item primeiro">5 (order: -1)</div>
+    </div>
+
+</body>
+</html>

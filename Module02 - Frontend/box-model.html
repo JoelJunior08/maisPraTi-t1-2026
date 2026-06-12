@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  BOX MODEL, UNIDADES DE MEDIDA E UM CARD DE PRODUTO COM FLEXBOX
+  ============================================================================
+
+  Olá! Pense neste arquivo como uma aula comentada linha a linha.
+  Toda página HTML é como uma casa:
+    - O HTML é a ESTRUTURA (as paredes, portas, cômodos).
+    - O CSS é a DECORAÇÃO (cor das paredes, tamanho dos móveis, espaçamentos).
+    - O <!DOCTYPE html> abaixo é o "contrato" que avisa ao navegador:
+      "esta casa segue as regras modernas do HTML5". Sem ele, navegadores
+      antigos podem entrar no chamado "quirks mode" (modo de compatibilidade
+      bagunçado) e renderizar a página de um jeito imprevisível.
+  ============================================================================
+-->
+<html lang="pt-br">
+<!--
+  O atributo lang="pt-br" declara que o idioma principal do conteúdo é português.
+-->
+<head>
+  <!--
+    O <head> é o "bastidor" da página: tudo aqui é configuração e NÃO aparece
+    visualmente na tela. É onde o navegador busca instruções antes de desenhar.
+  -->
+
+  <meta charset="UTF-8">
+  <!--
+    charset="UTF-8" define a CODIFICAÇÃO de caracteres.
+    Em miúdos: é a "tabela de tradução" que ensina o navegador a transformar
+    os bytes do arquivo em letras na tela. UTF-8 cobre praticamente todos os
+    idiomas. Sem ela, acentos e o "ê" de "Grêmio" podem virar símbolos estranhos
+    (os famosos "Grêmio" tortos: GrÃªmio). Por isso vem SEMPRE no topo do <head>.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    Esta linha é a base do DESIGN RESPONSIVO (a página se adaptar a celulares).
+      - width=device-width  -> "use a largura real do dispositivo como referência".
+      - initial-scale=1.0    -> "comece com zoom 100%, sem ampliar nem reduzir".
+    Sem ela, o celular finge ser uma tela larga de ~980px e encolhe tudo,
+    deixando os textos minúsculos. É um item OBRIGATÓRIO em sites modernos.
+  -->
+
+  <title>Box Model &amp; Product Card</title>
+  <!--
+    O <title> é o texto que aparece na ABA do navegador e nos resultados de busca.
+    Curiosidade: &amp; é uma "entidade HTML". Como o caractere & tem significado
+    especial em HTML, escrevemos &amp; para exibir literalmente o símbolo "&".
+  -->
+
+  <style>
+    /*
+      ========================================================================
+      AQUI COMEÇA O CSS (a "decoração" da casa).
+      Colocar o CSS dentro do <style> chama-se "CSS interno". Em projetos reais
+      o ideal é separar em um arquivo .css externo (ex.: <link rel="stylesheet">),
+      mas para uma aula focada, mantê-lo aqui facilita a leitura.
+      ========================================================================
+    */
+
+    /*
+      O seletor universal "*" significa "TODOS os elementos da página".
+      Aqui aplicamos uma regra global que muda o comportamento das medidas.
+    */
+    * {
+      box-sizing: border-box;
+      /*
+        ESTE É O CONCEITO MAIS IMPORTANTE DA AULA. Preste atenção:
+
+        Todo elemento na web é uma CAIXA (box) formada por 4 camadas, de dentro
+        para fora:
+            [ CONTENT ]  -> o conteúdo de verdade (texto, imagem)
+            [ PADDING ]  -> "enchimento" interno, entre o conteúdo e a borda
+            [ BORDER  ]  -> a borda (linha) ao redor
+            [ MARGIN  ]  -> o espaço EXTERNO, que afasta a caixa das vizinhas
+
+        A pergunta-chave é: quando eu digo "width: 100px", esses 100px contam
+        o quê? A resposta depende do box-sizing:
+
+        • box-sizing: content-box (o PADRÃO do navegador)
+            -> os 100px valem SÓ para o content.
+            -> a largura final = 100 + padding + border. A caixa "incha".
+
+        • box-sizing: border-box (o que escolhemos aqui)
+            -> os 100px já INCLUEM content + padding + border.
+            -> a largura final é EXATAMENTE 100px. O content é que encolhe
+               para caber. Bem mais previsível!
+
+        Por isso quase todo projeto profissional começa com "* { box-sizing:
+        border-box; }". Você pede 100px e recebe 100px. Sem surpresas.
+      */
+    }
+
+    body {
+      /*
+        O <body> é o corpo visível da página inteira. É o "chão" onde tudo se apoia.
+      */
+      margin: 0;                    /* Zera a margem que o navegador adiciona por padrão ao body (geralmente 8px), grudando a página nas bordas da janela. */
+      padding: 20px;                /* Cria um respiro interno de 20px em todos os lados, para o conteúdo não encostar na beirada da tela. */
+      font-family: sans-serif;      /* Define a família de fontes. "sans-serif" = fonte sem os "pezinhos" das letras; é genérica e legível, e o navegador escolhe uma disponível (Arial, Helvetica...). */
+      background-color: #f5f5f5;    /* Cor de fundo em hexadecimal. #f5f5f5 é um cinza bem claro (quase branco), suave para os olhos. */
+      color: #333;                  /* Cor PADRÃO do texto. #333 é um cinza escuro — mais confortável de ler que o preto puro (#000), que pode "vibrar" no fundo claro. */
+    }
+
+    /* ====================================================================== */
+    /* === BLOCO 1: DEMONSTRAÇÃO VISUAL DO BOX MODEL ========================= */
+    /* ====================================================================== */
+
+    .demo-section {
+      /*
+        O ponto "." indica um seletor de CLASSE. Esta regra atinge qualquer
+        elemento com class="demo-section". Classes são reutilizáveis: você pode
+        aplicar a mesma em vários elementos.
+      */
+      margin-bottom: 40px;          /* Empurra 40px de espaço PARA BAIXO, separando esta seção da próxima. */
+    }
+
+    /*
+      Seletor composto: ".demo-section h2.content"
+      Lê-se da direita para a esquerda: "um <h2> que tenha a classe 'content',
+      DESDE QUE esteja dentro de um elemento com a classe 'demo-section'".
+      Isso evita aplicar o estilo a h2 de outras partes da página.
+    */
+    .demo-section h2.content {
+      border: 1px solid red;        /* Borda de 1px, estilo "solid" (linha contínua), cor vermelha — só para ENXERGARMOS os limites da caixa. */
+      width: 100px;                 /* Largura desejada da caixa. */
+      height: 100px;                /* Altura desejada da caixa. */
+      padding: 10px;                /* 10px de enchimento interno em todos os lados, afastando o texto da borda. */
+      margin-left: 100px;           /* Empurra a caixa 100px para a DIREITA (cria margem só do lado esquerdo). */
+      margin-bottom: 20px;          /* 20px de separação para a demo de baixo. */
+    }
+
+    /*
+      Segundo exemplo: agora demonstrando UNIDADES DE MEDIDA RELATIVAS.
+    */
+    .demo-section h2.units {
+      border: 1px solid red;        /* Mesma borda vermelha, para vermos os limites. */
+      width: 100vmin;              /*
+                                       vmin = "viewport minimum". 1vmin equivale a 1%
+                                       da MENOR dimensão da janela (entre largura e altura).
+                                       Logo, 100vmin = 100% da menor dimensão. Em um celular
+                                       em pé, a menor dimensão é a largura; deitado, é a altura.
+                                       Útil para criar quadrados que cabem na tela em qualquer
+                                       orientação.
+                                    */
+      height: 100vmin;             /* Mesma lógica para a altura -> resultado: um quadrado perfeito que acompanha o tamanho da viewport. */
+      font-size: 2rem;             /*
+                                       rem = "root em". 1rem é igual ao font-size do elemento
+                                       RAIZ (<html>), que por padrão é 16px. Então 2rem = 32px.
+                                       Vantagem do rem: se o usuário aumentar a fonte do
+                                       navegador (acessibilidade), TUDO escala junto de forma
+                                       coerente, porque tudo se baseia na mesma raiz.
+                                    */
+      margin-bottom: 20px;          /* Separação para a seção seguinte. */
+    }
+
+    /* ====================================================================== */
+    /* === BLOCO 2: CARD DE PRODUTO (exemplo realista com Flexbox) ========== */
+    /* ====================================================================== */
+
+    .product-card {
+      width: 200px;                 /* Largura total do card = 200px (graças ao border-box, é 200px MESMO, padding e borda inclusos). */
+      padding: 20px;                /* Respiro interno de 20px para o conteúdo não colar nas bordas do card. */
+      border: 2px solid #ccc;       /* Borda sólida de 2px na cor #ccc (cinza claro), dando o contorno do cartão. */
+      border-radius: 6px;           /* Arredonda os cantos em 6px, deixando o card com aparência mais "macia" e moderna. */
+      background-color: white;      /* Fundo branco para o card se destacar do fundo cinza da página. */
+
+      /*
+        AGORA ENTRA O FLEXBOX — uma técnica de layout que organiza os filhos
+        de um elemento de forma flexível. Ao declarar "display: flex", este card
+        vira um "container flex" e todos os elementos DENTRO dele (imagem, nome,
+        preço, botão) passam a ser "itens flex" que podemos alinhar facilmente.
+      */
+      display: flex;                /* Liga o modo Flexbox neste container. */
+      flex-direction: column;       /* Define o eixo principal como VERTICAL: os itens se empilham de cima para baixo (em vez do padrão "row", que seria lado a lado). */
+
+      /* Repare que NÃO definimos height fixo: assim o card cresce ou encolhe conforme a quantidade de conteúdo. */
+
+      margin: 0 auto;               /*
+                                       Atalho de margem com 2 valores: "0 auto".
+                                         - 0    -> margem em cima e embaixo.
+                                         - auto -> margem ESQUERDA e DIREITA automáticas.
+                                       O "auto" divide o espaço livre igualmente dos dois lados,
+                                       o que CENTRALIZA o card horizontalmente na página.
+                                    */
+    }
+
+    .product-card img {
+      /*
+        Estiliza a <img> que estiver dentro do .product-card.
+      */
+      width: 100%;                  /* A imagem ocupa 100% da largura INTERNA disponível do card (já descontado o padding). */
+      height: auto;                 /* "auto" preserva a PROPORÇÃO original: a altura se ajusta sozinha para a imagem não ficar achatada/esticada. */
+      margin-bottom: 10px;          /* 10px de espaço abaixo da imagem, separando-a do nome do produto. */
+      display: block;               /*
+                                       Por padrão, <img> é "inline" e o navegador reserva um
+                                       pequeno espaço extra embaixo (por causa do alinhamento de
+                                       texto). Trocar para "block" elimina esse vão fantasma e
+                                       deixa o layout mais limpo.
+                                    */
+    }
+
+    .product-card .product-name {
+      font-size: 1.1rem;            /* 1.1rem ≈ 17.6px: deixa o nome do produto levemente maior que o texto comum, dando hierarquia visual. */
+      margin: 0 0 8px;              /*
+                                       Atalho de margem com 3 valores: "topo / laterais / base".
+                                         - 0  -> topo
+                                         - 0  -> esquerda e direita
+                                         - 8px -> base
+                                       Resultado: zero margem em cima e nas laterais, e 8px só
+                                       embaixo, separando o nome do preço.
+                                    */
+    }
+
+    .product-card .product-price {
+      color: #e74c3c;               /* Vermelho-coral: cor quente que CHAMA ATENÇÃO para o preço, que é a informação de maior peso na decisão de compra. */
+      font-weight: bold;            /* Deixa o preço em negrito, reforçando o destaque. */
+      margin: 0;                    /* Remove qualquer margem padrão do <p> para controlarmos o espaçamento manualmente. */
+    }
+
+    .product-card .buy-button {
+      padding: 10px;                /* Enchimento interno de 10px: aumenta a "área clicável" do botão, melhorando a usabilidade (importante em telas de toque). */
+      margin-top: auto;             /*
+                                       TRUQUE ELEGANTE DE FLEXBOX: dentro de um container flex em
+                                       coluna, "margin-top: auto" empurra este item o MÁXIMO
+                                       possível para baixo, absorvendo todo o espaço livre acima.
+                                       Efeito: o botão "Comprar" fica sempre grudado no rodapé do
+                                       card, mesmo que os textos acima variem de tamanho. Ótimo
+                                       para alinhar botões de vários cards na mesma altura.
+                                    */
+      margin-bottom: 10px;          /* Pequena folga abaixo do botão, caso exista mais conteúdo depois. */
+      border: none;                 /* Remove a borda padrão "3D" que o navegador desenha em botões. */
+      background-color: #3498db;    /* Azul como cor de fundo: tom comum para botões de ação. */
+      color: white;                 /* Texto branco para contrastar bem com o azul (boa legibilidade). */
+      font-size: 1rem;              /* 1rem = 16px: tamanho de fonte confortável e padrão. */
+      border-radius: 4px;           /* Cantos levemente arredondados, combinando com o estilo do card. */
+      cursor: pointer;              /*
+                                       Muda o cursor do mouse para a "mãozinha" ao passar sobre o
+                                       botão. É um SINAL VISUAL de que o elemento é clicável —
+                                       detalhe pequeno que melhora muito a experiência do usuário.
+                                    */
+    }
+
+    .product-card .buy-button:hover {
+      /*
+        O ":hover" é uma PSEUDO-CLASSE: um estado especial que ativa o estilo
+        APENAS quando o mouse está POR CIMA do botão. É o que dá o feedback
+        visual de "estou interagindo com isto".
+      */
+      background-color: #2980b9;    /* Azul um tom mais escuro ao passar o mouse, confirmando ao usuário que o botão respondeu. */
+    }
+  </style>
+</head>
+<body>
+  <!--
+    A partir daqui temos o conteúdo VISÍVEL da página (o que o usuário enxerga).
+  -->
+
+  <!-- ==================== SEÇÃO 1: BOX MODEL ==================== -->
+  <section class="demo-section">
+    <!--
+      <section> é um elemento SEMÂNTICO: ele não muda a aparência, mas comunica
+      ("dá significado") que aquele bloco é uma seção temática da página. Usar
+      tags semânticas (section, header, nav, footer...) em vez de <div> genérica
+      ajuda na acessibilidade e na organização do código.
+    -->
+    <h2 class="content">content</h2>
+    <!-- Caixa-exemplo que demonstra content + padding + border na prática. -->
+
+    <h2 class="units">unidades de medida</h2>
+    <!-- Caixa-exemplo que demonstra as unidades relativas vmin e rem. -->
+  </section>
+
+  <!-- ==================== SEÇÃO 2: CARD DE PRODUTO ==================== -->
+  <section>
+    <div class="product-card">
+      <!--
+        <div> é um contêiner GENÉRICO, sem significado semântico próprio. Aqui
+        ele agrupa as partes do card (imagem, nome, preço, botão) para que o CSS
+        possa estilizá-las como um conjunto.
+      -->
+
+      <!-- Imagem do produto -->
+      <img src="/2-Front-End-Basics/assets/Grêmio.jpg" alt="Produto Exemplo">
+      <!--
+        - src  -> o CAMINHO do arquivo de imagem. ATENÇÃO: começar com "/" indica
+                  um caminho ABSOLUTO a partir da raiz do servidor. Se a imagem
+                  não aparecer, provavelmente o caminho está incorreto; tente um
+                  caminho RELATIVO (ex.: "assets/Gremio.jpg") e evite acentos e
+                  caracteres especiais em nomes de arquivo, pois costumam quebrar.
+        - alt  -> TEXTO ALTERNATIVO. Aparece se a imagem falhar e é LIDO por
+                  leitores de tela. É essencial para acessibilidade. Idealmente
+                  descreva o produto de verdade (ex.: "Tênis de corrida azul").
+      -->
+
+      <!-- Nome do produto -->
+      <h3 class="product-name">Tênis de Corrida</h3>
+      <!--
+        Usamos <h3> aqui (e não <h2>) respeitando a HIERARQUIA de títulos. Pense
+        nos cabeçalhos como o índice de um livro: h1 é o título principal da
+        página, h2 são capítulos, h3 são subtópicos. Pular níveis ou usá-los só
+        pelo tamanho da fonte é má prática; o tamanho quem controla é o CSS.
+      -->
+
+      <!-- Preço -->
+      <p class="product-price">R$ 199,90</p>
+      <!-- <p> = parágrafo. Aqui guarda o preço, destacado em vermelho e negrito pelo CSS. -->
+
+      <!-- Botão de compra, fixado ao rodapé interno do card pelo "margin-top: auto" -->
+      <button class="buy-button">Comprar</button>
+      <!--
+        <button> é o elemento nativo para AÇÕES clicáveis. Prefira-o a uma <div>
+        "fingindo" ser botão, pois o <button> já vem com acessibilidade pronta
+        (foco pelo teclado, leitura por leitores de tela, etc.).
+      -->
+    </div>
+  </section>
+
+</body>
+</html>
