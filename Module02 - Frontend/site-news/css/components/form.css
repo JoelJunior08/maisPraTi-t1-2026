@@ -1,0 +1,63 @@
+.auth { 
+    display: flex; 
+    justify-content: 
+    center; 
+    padding: 40px 0;
+}
+
+.formulario {
+    background-color: var(--cor-card);
+    border-radius: var(--raio);
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.formulario label {
+    display: block;
+    font-family: var(--fonte-ui);
+    font-size: 13px;
+    color: var(--cor-suave);
+    margin: 14px 0;
+}
+
+.formulario input {
+    width: 100%;
+    font-family: var(--fonte-ui);
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid var(--cor-suave);
+    border-radius: var(--raio);
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: var(--cor-destaque);
+}
+
+.linha {
+    display: flex;
+    gap: 12px;
+}
+
+.campo-largo {
+    flex: 1;
+}
+
+.campo-curto {
+    width: 90px;
+}
+
+.formulario .btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: var(--raio);
+}
+
+.rodape-form {
+    text-align: center;
+    font-family: var(--fonte-ui);
+    font-size: 14px;
+    margin-top: 16px;
+}
