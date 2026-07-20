@@ -1,33 +1,35 @@
+import { Link } from 'react-router-dom'  
 import './Header.css'
 
-function Header( { tema, aoAlternarTema }) {
-    const hoje = new Date().toLocaleDateString('pt-BR', {
-        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-    })
+function Header({ tema, aoAlternarTema }) {
+  const hoje = new Date().toLocaleDateString('pt-BR', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  })
 
-    return (
-        <header className="cabecalho">
-            <div className="cabecalho__faixa">
-                <span>Edição de Nova York</span>
-                <span>{hoje}</span>
-                <span>U$ 1,50</span>
-                <button className='cabecalho__tema' onClick={aoAlternarTema}>
-                    {tema === 'light' ? 'Escuro' : 'Claro'}
-                </button>
-            </div>
+  return (
+    <header className="cabecalho">
+      <div className="cabecalho__faixa">
+        <span>Edição de Nova York</span>
+        <span>{hoje}</span>
+        <button className="cabecalho__tema" onClick={aoAlternarTema}>
+          {tema === 'light' ? '🌙 Escuro' : '☀️ Claro'}
+        </button>
+      </div>
 
-            <h1 className="cabecalho__titulo">O CLARIM DIÁRIO</h1>
-            <p className="cabecalho__lema">A verdade doa a quem doer - Inclusive a certos aracnídeos</p>
+      <Link to="/" className="cabecalho__logo-link">
+        <h1 className="cabecalho__titulo">O CLARIM DIÁRIO</h1>
+      </Link>
+      <p className="cabecalho__lema">A verdade doa a quem doer — inclusive a certos aracnídeos</p>
 
-            <nav className="cabecalho__menu">
-                <a href="">Cidade</a>
-                <a href="">Ameaças Urbanas</a>
-                <a href="">Opinião do Editor</a>
-                <a href="">Esportes</a>
-                <a href="">Classificados</a>
-            </nav>
-        </header>
-    )
+      <nav className="cabecalho__menu">
+        <Link to="/">Capa</Link>
+        <a href="#">Cidade</a>
+        <a href="#">Ameaças Urbanas</a>
+        <a href="#">Opinião do Editor</a>
+        <Link to="/cadastro">Assine</Link>
+      </nav>
+    </header>
+  )
 }
 
 export default Header
