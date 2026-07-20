@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { buscarCep } from '../../services/viacep'
-import './Cadastro.css'
 
 function Cadastro() {
   // UM estado-objeto para o formulário inteiro (em vez de 7 useState)
