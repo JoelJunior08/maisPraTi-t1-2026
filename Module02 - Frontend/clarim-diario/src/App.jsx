@@ -6,6 +6,7 @@ import Materia from './pages/Materia/Materia'
 import Cadastro from './pages/Cadastro/Cadastro'
 import Login from './pages/Login/Login'
 import RotaProtegida from './components/RotaProtegida'
+import Footer from './components/Footer/Footer'
 import Painel from './pages/Painel/Painel'
 import './App.css'
 
@@ -44,6 +45,8 @@ function App() {
           </RotaProtegida>
         } />
       </Routes>
+
+      <Footer />
     </>
   )
 }
