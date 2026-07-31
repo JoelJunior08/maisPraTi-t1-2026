@@ -1,11 +1,17 @@
+// ============================================================
+//   PÁGINA MATÉRIA — exibe UMA notícia, escolhida pela URL
+// ============================================================
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { buscarNoticia } from '../../services/noticias'
 import './Materia.css'
 
 function Materia() {
+  // useParams lê os parâmetros dinâmicos da rota. No App.jsx definimos
+  // "/materia/:id" — então aqui `id` recebe o que estiver na URL.
   const { id } = useParams()
 
+  // Mesmo trio de estados da Home (dado + carregando + erro).
   const [noticia, setNoticia] = useState(null)
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState('')
@@ -14,7 +20,7 @@ function Materia() {
     async function carregar() {
       try {
         setCarregando(true)
-        setErro('')                       
+        setErro('')
         const dados = await buscarNoticia(id)
         setNoticia(dados)
       } catch {
@@ -24,7 +30,9 @@ function Materia() {
       }
     }
     carregar()
-  }, [id])   
+    // A dependência é [id]: se o usuário navegar de /materia/1 para
+    // /materia/2, o `id` muda e o efeito RE-executa, buscando a nova matéria.
+  }, [id])
 
   if (carregando) {
     return <p className="aviso-tela">Carregando a matéria…</p>

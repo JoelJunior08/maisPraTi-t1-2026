@@ -1,6 +1,12 @@
+// ============================================================
+//   PÁGINA PAINEL — área privada, só acessível quando logado
+// ============================================================
+// Esta página é renderizada dentro de <RotaProtegida> (veja App.jsx),
+// então temos GARANTIA de que `usuario` existe quando ela aparece.
 import { useAuth } from '../../contexts/AuthContext'
 
 function Painel() {
+    // Consome o usuário logado direto do contexto — sem props.
     const { usuario } = useAuth()
 
     return (

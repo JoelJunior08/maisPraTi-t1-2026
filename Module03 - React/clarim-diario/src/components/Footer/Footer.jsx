@@ -1,8 +1,13 @@
+// ============================================================
+//   FOOTER — rodapé fixo, presente em todas as páginas
+// ============================================================
 import { Link } from 'react-router-dom'
 import './Footer.css'
 
 function Footer() {
 
+  // Calculado a cada render: o ano do copyright fica sempre atualizado
+  // sozinho, sem precisar editar o código todo mês de janeiro.
   const ano = new Date().getFullYear()
 
   return (
