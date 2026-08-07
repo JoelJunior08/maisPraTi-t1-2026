@@ -1,2 +1,47 @@
-node_modules
+# ============================================================
+#   .gitignore ÚNICO do repositório (vale para TODOS os módulos)
+# ============================================================
+
+
+# --- Dependências (recriadas com `npm install`) ---------------
+# Pesado e específico da máquina: nunca versionamos.
+node_modules/
+
+# --- Saídas de build (geradas, não são código-fonte) ----------
+# O Vite gera dist/ ao rodar `npm run build`.
+dist/
+dist-ssr/
+build/
+
+# --- Relatórios de cobertura de testes ------------------------
+# Criados por `vitest --coverage` / `jest --coverage`.
+coverage/
+
+# --- Logs e caches do npm -------------------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# --- Variáveis de ambiente (segredos!) ------------------------
+# Chaves de API e senhas NÃO entram no Git.
+.env
+.env.*
+!.env.example
+
+# --- Arquivos do sistema operacional --------------------------
+.DS_Store
+Thumbs.db
+
+# --- Configurações de editor / IDE ----------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# --- Temporários do VS Code "Code Runner" ---------------------
 tempCodeRunnerFile
+*.local
