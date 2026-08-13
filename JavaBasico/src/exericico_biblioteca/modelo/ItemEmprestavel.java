@@ -18,7 +18,7 @@ public abstract class ItemEmprestavel extends ItemAcervo implements Emprestavel 
 
         if(!isDisponivel()) {
             System.out.println("Item indisponível.");
-        }
+        } 
         marcarComoEmprestado();
         return true;
     }

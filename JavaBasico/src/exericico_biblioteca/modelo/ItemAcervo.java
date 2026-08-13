@@ -40,11 +40,11 @@ public abstract class ItemAcervo {
     }
 
     public int getAno() {
-        return ano;
+        return this.ano;
     }
 
     public boolean isDisponivel() {
-        return disponivel;
+        return this.disponivel;
     }
 
     protected void marcarComoEmprestado() {
