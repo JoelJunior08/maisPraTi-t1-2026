@@ -19,4 +19,9 @@ public abstract class Usuario {
         this.multaAcumulada = 0;
         totalUsuariosCriados++;
     }
+
+    public abstract int getLimiteEmprestimos();
+
+    public abstract double getPercentualDesconto();
 }
+
