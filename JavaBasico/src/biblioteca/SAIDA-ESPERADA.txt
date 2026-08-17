@@ -1,0 +1,113 @@
+
+==============================================================
+   BIBLIOTECA UNIVERSITARIA - DEMONSTRACAO
+==============================================================
+
+[1] ACERVO CADASTRADO (7 itens)
+--------------------------------------------------------------
+LIVRO    | Clean Code                      | 14 dias | R$ 0.50/dia
+LIVRO    | Estruturas de Dados             | 14 dias | R$ 0.50/dia
+REVISTA  | Scientific American             |  7 dias | R$ 1.00/dia
+DVD      | Documentario: Codigos           |  3 dias | R$ 2.00/dia
+TESE     | Otimizacao de Compiladores      |  7 dias | R$ 1.50/dia
+REFER.   | Dicionario Houaiss              | CONSULTA LOCAL
+REFER.   | Enciclopedia Barsa              | CONSULTA LOCAL
+
+[2] EMPRESTIMOS
+--------------------------------------------------------------
+   [OK] Ana Ribeiro           pegou "Clean Code"  [1/3]
+   [OK] Ana Ribeiro           pegou "Scientific American"  [2/3]
+   [OK] Ana Ribeiro           pegou "Documentario: Codigos"  [3/3]
+   [X] Ana Ribeiro            tentou "Estruturas de Dados" - limite de 3 item(s) atingido
+   [X] Bruno Alves            tentou "Clean Code" - item indisponivel
+   [X] Bruno Alves            tentou "Otimizacao de Compiladores" - restrito a pos-graduacao
+   [OK] Carla Nunes           pegou "Otimizacao de Compiladores"  [1/5]
+   [OK] Diego Martins         pegou "Estruturas de Dados"  [1/10]
+
+[3] OBRAS DE REFERENCIA
+--------------------------------------------------------------
+   [X] Diego Martins          tentou "Dicionario Houaiss" - obra de consulta local
+   [OK] Diego Martins         consultou "Dicionario Houaiss" na estante A-12
+   [i] houaiss.emprestar(diego) nao compila - protegido pelo sistema de tipos
+
+[4] DEVOLUCOES COM 5 DIAS DE ATRASO
+--------------------------------------------------------------
+   Ana (Graduacao)  "Clean Code"             bruta R$   2.50 | desc.   0% | paga R$   2.50
+   Ana (Graduacao)  "Documentario: Codigos"  bruta R$  10.00 | desc.   0% | paga R$  10.00
+   Carla (Pos-graduacao) "Otimizacao de Compiladores" bruta R$   7.50 | desc.  20% | paga R$   6.00
+   Diego (Professor) "Estruturas de Dados"    bruta R$   2.50 | desc.  50% | paga R$   1.25
+
+[5] SITUACAO DOS USUARIOS
+--------------------------------------------------------------
+   Ana Ribeiro (Graduacao) - 1/3 itens | multa R$ 12.50
+   Bruno Alves (Graduacao) - 0/3 itens | multa R$ 0.00
+   Carla Nunes (Pos-graduacao) - 0/5 itens | multa R$ 6.00 | Mestrado em CC
+   Diego Martins (Professor) - 0/10 itens | multa R$ 1.25 | Dr., Computacao
+--------------------------------------------------------------
+   TOTAL EM MULTAS: R$ 19.75
+
+[6] RESERVAS
+--------------------------------------------------------------
+   [OK] Bruno Alves           pegou "Clean Code"  [1/3]
+
+   Clean Code                       reservado por Carla Nunes
+
+[7] NOTIFICACOES AUTOMATICAS
+--------------------------------------------------------------
+      [AVISO -> ana@uni.br] *** URGENTE *** Debito de R$ 12.50 pendente.
+      [AVISO -> carla@uni.br] Voce possui R$ 6.00 em multas.
+      [AVISO -> diego@uni.br] Voce possui R$ 1.25 em multas.
+
+[8] TESTES DE ENCAPSULAMENTO
+--------------------------------------------------------------
+   [OK] Compilacao: cleanCode.disponivel = true - bloqueado
+   [OK] Compilacao: ana.multaAcumulada = 0 - bloqueado
+   [OK] Excecao: Ano invalido: 1200. Esperado entre 1400 e 2026.
+   [OK] Excecao: Valor de multa nao pode ser negativo.
+   [OK] Excecao: Pagamento de R$ 100.00 excede o debito de R$ 0.00.
+   [OK] Copia defensiva: alterar o array devolvido nao afetou o estado interno
+
+[9] IGUALDADE DE OBJETOS
+--------------------------------------------------------------
+   cleanCode == copia .............. false   (compara ENDERECOS - sao dois objetos distintos)
+   cleanCode.equals(copia) ......... true    (compara CONTEUDO - mesmo codigo L001)
+   hashCodes iguais ................ true    (obrigatorio quando equals e true)
+
+[10] PROVA DE EXTENSIBILIDADE
+--------------------------------------------------------------
+   Adicionando AudioLivro e Visitante - categorias que
+   nao existiam quando os lacos acima foram escritos.
+
+   [OK] Elena Prado           pegou "O Cortico (audio)"  [1/1]
+   [X] Elena Prado            tentou "Estruturas de Dados" - limite de 1 item(s) atingido
+
+[1] ACERVO CADASTRADO (8 itens)
+--------------------------------------------------------------
+LIVRO    | Clean Code                      | 14 dias | R$ 0.50/dia
+LIVRO    | Estruturas de Dados             | 14 dias | R$ 0.50/dia
+REVISTA  | Scientific American             |  7 dias | R$ 1.00/dia
+DVD      | Documentario: Codigos           |  3 dias | R$ 2.00/dia
+TESE     | Otimizacao de Compiladores      |  7 dias | R$ 1.50/dia
+REFER.   | Dicionario Houaiss              | CONSULTA LOCAL
+REFER.   | Enciclopedia Barsa              | CONSULTA LOCAL
+AUDIO    | O Cortico (audio)               | 10 dias | R$ 0.75/dia
+
+   >>> Nenhum laco, nenhum if e nenhuma classe existente
+   >>> precisou ser alterado para isso funcionar.
+   >>> Isso e polimorfismo pagando o investimento da modelagem.
+
+
+==============================================================
+   RESUMO
+==============================================================
+
+   Itens criados nesta execucao ..... 9
+   Usuarios criados ................. 5
+   Itens no acervo .................. 8
+   Obras de consulta local .......... 2
+   Total em multas .................. R$ 19.75
+
+   Note que getTotalItensCriados() e chamado pela CLASSE,
+   sem objeto algum. E o mesmo motivo pelo qual main e
+   static e Math.sqrt() funciona sem new Math().
+

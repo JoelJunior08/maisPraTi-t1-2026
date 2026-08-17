@@ -23,5 +23,34 @@ public abstract class Usuario {
     public abstract int getLimiteEmprestimos();
 
     public abstract double getPercentualDesconto();
+
+    public abstract String getCategoria();
+
+    public double aplicarDesconto(double multaAcumulada) {
+        if (multaAcumulada < 0) {
+            throw new IllegalArgumentException("Multa não pode ser menor do que zero.");
+        }
+        return multaAcumulada * getPercentualDesconto();
+    }
+
+    void registrarEmprestimo(ItemAcervo item) {
+        itensEmprestados[quantidadeEmprestada] = item;
+        quantidadeEmprestada++;
+    }
+
+    boolean registrarDevolucao(ItemAcervo item) {
+        for(int i = 0; i < quantidadeEmprestada; i++) {
+            if(itensEmprestados[i].equals(item)) {
+               for(int j = i; j < quantidadeEmprestada - 1; j++) {
+                   itensEmprestados[j] = itensEmprestados[j + 1];
+               }
+
+               itensEmprestados[quantidadeEmprestada - 1] = null;
+               quantidadeEmprestada--;
+               return true;
+            }
+        }
+        return false;
+    }
 }
 
