@@ -1,4 +1,4 @@
-package exericico_biblioteca.modelo;
+package biblioteca.modelo;
 
 /*
  * ============================================================

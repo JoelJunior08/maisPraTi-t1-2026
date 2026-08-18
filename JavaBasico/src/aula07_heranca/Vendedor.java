@@ -11,6 +11,6 @@ public class Vendedor extends Funcionario {
 
     @Override
     public double calcularSalario() {
-        return super.calcularSalario() + this.totalVendas * COMISSAO;
+        return + this.totalVendas * COMISSAO;
     }
 }

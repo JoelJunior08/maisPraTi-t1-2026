@@ -1,6 +1,6 @@
-package br.com.biblioteca.modelo;
+package biblioteca.modelo;
 
-import br.com.biblioteca.contrato.Notificavel;
+import biblioteca.contrato.Notificavel;
 import java.util.Arrays;
 
 /*

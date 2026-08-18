@@ -1,6 +1,6 @@
-package exericico_biblioteca.modelo;
+package biblioteca.modelo;
 
-import exericico_biblioteca.contrato.Config;
+import biblioteca.contrato.Config;
 
 /*
  * ============================================================
@@ -98,7 +98,7 @@ public abstract class ItemAcervo {
         if (ano < Config.ANO_MINIMO_PUBLICACAO || ano > Config.ANO_MAXIMO_PUBLICACAO) {
             throw new IllegalArgumentException(
                     "Ano invalido: " + ano + ". Esperado entre "
-                            + Config.ANO_MINIMO_PUBLICACAO + " e " + Config.ANO_MAXIMO_PUBLICACAO + ".");
+                    + Config.ANO_MINIMO_PUBLICACAO + " e " + Config.ANO_MAXIMO_PUBLICACAO + ".");
         }
 
         this.codigo = codigo;

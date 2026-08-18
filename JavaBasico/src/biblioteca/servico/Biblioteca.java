@@ -1,11 +1,11 @@
-package br.com.biblioteca.servico;
+package biblioteca.servico;
 
-import br.com.biblioteca.contrato.Config;
-import br.com.biblioteca.contrato.Emprestavel;
-import br.com.biblioteca.contrato.Reservavel;
-import br.com.biblioteca.modelo.ItemAcervo;
-import br.com.biblioteca.modelo.ObraReferencia;
-import br.com.biblioteca.modelo.Usuario;
+import biblioteca.contrato.Config;
+import biblioteca.contrato.Emprestavel;
+import biblioteca.contrato.Reservavel;
+import biblioteca.modelo.ItemAcervo;
+import biblioteca.modelo.ObraReferencia;
+import biblioteca.modelo.Usuario;
 
 /*
  * ============================================================

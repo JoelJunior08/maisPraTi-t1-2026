@@ -1,4 +1,4 @@
-package br.com.biblioteca.modelo;
+package biblioteca.modelo;
 
 /*
  * ============================================================

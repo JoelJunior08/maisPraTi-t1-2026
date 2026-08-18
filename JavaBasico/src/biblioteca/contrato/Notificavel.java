@@ -1,4 +1,4 @@
-package br.com.biblioteca.contrato;
+package biblioteca.contrato;
 
 /*
  * ============================================================

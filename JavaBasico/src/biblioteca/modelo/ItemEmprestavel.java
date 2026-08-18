@@ -1,6 +1,6 @@
-package br.com.biblioteca.modelo;
+package biblioteca.modelo;
 
-import br.com.biblioteca.contrato.Emprestavel;
+import biblioteca.contrato.Emprestavel;
 
 /*
  * ============================================================

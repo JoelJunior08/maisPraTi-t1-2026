@@ -10,13 +10,13 @@ Atividade integradora dos quatro pilares da Orientação a Objetos.
 1. `File` → `New` → `Project from Existing Sources...` e aponte para a pasta do projeto.
 2. Ou crie um projeto novo (Build system: **IntelliJ**, JDK **21**) e copie a pasta `src` para dentro.
 3. Marque `src` como *Sources Root* se o IntelliJ não fizer isso sozinho (botão direito → `Mark Directory as` → `Sources Root`).
-4. Execute `br.com.biblioteca.Main`.
+4. Execute `biblioteca.Main`.
 
 Pelo terminal:
 
 ```bash
 javac -d out -encoding UTF-8 $(find src -name "*.java")
-java -cp out br.com.biblioteca.Main
+java -cp out biblioteca.Main
 ```
 
 > **Windows:** se os acentos saírem trocados no console, rode `chcp 65001` antes.

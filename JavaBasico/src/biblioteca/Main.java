@@ -1,9 +1,9 @@
-package br.com.biblioteca;
+package biblioteca;
 
-import br.com.biblioteca.contrato.Config;
-import br.com.biblioteca.contrato.Emprestavel;
-import br.com.biblioteca.modelo.*;
-import br.com.biblioteca.servico.Biblioteca;
+import biblioteca.contrato.Config;
+import biblioteca.contrato.Emprestavel;
+import biblioteca.modelo.*;
+import biblioteca.servico.Biblioteca;
 
 /*
  * ============================================================

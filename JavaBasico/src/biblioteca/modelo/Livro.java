@@ -1,6 +1,6 @@
-package exericico_biblioteca.modelo;
+package biblioteca.modelo;
 
-import exericico_biblioteca.contrato.Reservavel;
+import biblioteca.contrato.Reservavel;
 
 /*
  * ============================================================

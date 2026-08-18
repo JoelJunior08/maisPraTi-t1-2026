@@ -1,6 +1,6 @@
-package br.com.biblioteca.contrato;
+package biblioteca.contrato;
 
-import br.com.biblioteca.modelo.Usuario;
+import biblioteca.modelo.Usuario;
 
 /*
  * ============================================================
