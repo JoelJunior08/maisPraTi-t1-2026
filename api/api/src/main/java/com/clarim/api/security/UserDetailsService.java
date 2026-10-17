@@ -1,6 +1,5 @@
 package com.clarim.api.security;
 
-import com.clarim.api.model.Usuario;
 import com.clarim.api.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,6 +1,7 @@
 package com.clarim.api.config;
 
 import com.clarim.api.security.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -57,15 +58,26 @@ public class ConfiguracaoSeguranca {
                         // não tem como (e não deveria) bloquear a rota inteira.
                         .requestMatchers(HttpMethod.GET, "/api/noticias/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/noticias").hasAnyRole("EDITOR", "ADMIN")
+                        // Health check consultado pela plataforma de deploy
+                        // (Railway/Render) e pelo docker compose — sem JWT.
+                        .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
+    // ANTES a origem era fixa em localhost:5173 — o front na Vercel seria
+    // bloqueado pelo navegador. Agora vem de app.cors.origens-permitidas
+    // (variável CORS_ORIGENS), e o Spring já quebra a string por vírgula.
+    @Value("${app.cors.origens-permitidas}")
+    private List<String> origensPermitidas;
+
     private CorsConfigurationSource configuracaoCors() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        // "Patterns" em vez de setAllowedOrigins: aceita curinga, útil para
+        // as URLs de preview da Vercel (https://clarim-diario-*.vercel.app).
+        config.setAllowedOriginPatterns(origensPermitidas);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
